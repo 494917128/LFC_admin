@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 登录
-import login from '@/pages/login/index'
+import login from '@/pages/login'
+import home from '@/pages/index'
 
 // 首页
 import index from '@/pages/index/index'
@@ -34,22 +35,25 @@ export default new Router({
   routes: [
     { path: '/login', name: 'login', component: login }, 
 
-    { path: '/index', name: 'index', component: index }, 
+    { path: '*', component: home, 
+      children: [
+        { path: '/', name: 'index', component: index }, 
 
-    { path: '/swiper', name: 'swiper', component: swiper }, 
-    { path: '/index_list', name: 'index_list', component: index_list }, 
-    { path: '/brand', name: 'brand', component: brand }, 
-    { path: '/brand_type', name: 'brand_type', component: brand_type }, 
+        { path: '/swiper', name: 'swiper', component: swiper }, 
+        { path: '/index_list', name: 'index_list', component: index_list }, 
+        { path: '/brand', name: 'brand', component: brand }, 
+        { path: '/brand_type', name: 'brand_type', component: brand_type }, 
 
-    { path: '/goods', name: 'goods', component: goods }, 
+        { path: '/goods', name: 'goods', component: goods }, 
 
-    { path: '/media', name: 'media', component: media }, 
-    { path: '/comment', name: 'comment', component: comment }, 
+        { path: '/media', name: 'media', component: media }, 
+        { path: '/comment', name: 'comment', component: comment }, 
 
-    { path: '/user', name: 'user', component: user }, 
-    { path: '/admin', name: 'admin', component: admin }, 
+        { path: '/user', name: 'user', component: user }, 
+        { path: '/admin', name: 'admin', component: admin }, 
 
-    { path: '/order', name: 'order', component: order }, 
-
+        { path: '/order', name: 'order', component: order }, 
+      ] 
+    },
   ],
 })

@@ -1,15 +1,21 @@
 <template>
-  <div :class="['modal_cover', 'justify-center', show && 'show']" @click="$emit('cancel');cover()">
-    <div class='modal_container' @click.stop>
-      <div class='title justify-center'>{{title}}</div>
-      <div class='content'>
-        <span v-if="text">{{text}}</span>
-        <slot v-else></slot>
-      </div>
-      <div class='button_div justify-center'>
-        <div @click="$emit('cancel');cancel()" v-if="!noCancel" class='modal-button justify-center' hover-class='hover'>{{cancelText||'取消'}}</div>
-        <div v-if="!noCancel" class='modal-line'></div>
-        <div @click="$emit('confirm');confirm()" class='modal-button justify-center' hover-class='hover'>{{confirmText||'确定'}}</div>
+  <!-- Modal -->
+  <div class="modal fade" :id="modalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{title||'提示'}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{text}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" v-if='!noCancel'>{{cancelText||'关闭'}}</button>
+          <button type="button" class="btn btn-primary">{{confirmText||'确定'}}</button>
+        </div>
       </div>
     </div>
   </div>
@@ -18,7 +24,7 @@
 <script>
 export default {
   name: 'MyModal',
-  props: ['show','title','text','noCancel','cancelText','confirmText'],
+  props: ['modalId','title','text','noCancel','cancelText','confirmText'],
   data () {
     return {
 
