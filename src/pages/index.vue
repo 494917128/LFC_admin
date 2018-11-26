@@ -65,12 +65,12 @@
           <template v-for="(item,index) in nav_list">
             <li :class="['nav-item',item.active?'active':'']">
               <a data-toggle="collapse" :href="'#Example'+index" aria-expanded="true" v-if="item.list">
-                <i class="la la-dashboard"></i>
+                <i :class="item.icon"></i>
                 <p>{{item.name}}</p>
                 <span class="caret" v-if="item.list"></span>
               </a>
               <router-link :to="{ name: item.link }" v-else>
-                <i class="la la-dashboard"></i>
+                <i :class="item.icon"></i>
                 <p>{{item.name}}</p>
               </router-link>
             </li>
@@ -94,7 +94,7 @@
       </div>
     </div>
 
-    <MyModal  />
+    <MyModal text='是否确认退出登录' id='myModal' @cancel='cancel' @confirm='confirm' />
   </div>
 </template>
 
@@ -106,10 +106,10 @@ export default {
   data() {
     return { 
       nav_list: [
-        { name: '首页', link: 'index', icon: '' },
+        { name: '首页', link: 'index', icon: 'la la-home  ' },
         { 
           name: '系统', 
-          icon: '', 
+          icon: 'la la-gears', 
           list: [
             { name: '主页列表', link: 'index_list', icon: '' },
             { name: '主页轮播图', link: 'swiper', icon: '' },
@@ -117,10 +117,10 @@ export default {
             { name: '品牌分类', link: 'brand_type', icon: '' },
           ] 
         },
-        { name: '商品', link: 'goods', icon: '' },
+        { name: '商品', link: 'goods', icon: 'la la-cubes' },
         { 
           name: '媒体', 
-          icon: '', 
+          icon: 'la la-youtube-play', 
           list: [
             { name: '媒体列表', link: 'media', icon: '' },
             { name: '媒体评论', link: 'comment', icon: '' },
@@ -128,13 +128,13 @@ export default {
         },
         { 
           name: '用户', 
-          icon: '', 
+          icon: 'la la-user', 
           list: [
             { name: '用户列表', link: 'user', icon: '' },
             { name: '管理员列表', link: 'admin', icon: '' },
           ] 
         },
-        { name: '订单', link: 'order', icon: '' },
+        { name: '订单', link: 'order', icon: 'la la-clipboard' },
 
       ]
     }
@@ -151,8 +151,13 @@ export default {
     // 退出登录
     logout() {
       $('#myModal').modal('show')
-      // this.$router.push({ name: 'login' })
-      // api.removeItem('adminId')
+    },
+    cancel() {},
+    // 确认退出登录
+    confirm() {
+      $('#myModal').modal('hide')
+      this.$router.push({ name: 'login' })
+      api.removeItem('adminId')
     },
     navRouter(name){ // 路由变化时改变nav的选中
       var _this = this

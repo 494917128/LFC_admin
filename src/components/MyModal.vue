@@ -1,6 +1,6 @@
 <template>
   <!-- Modal -->
-  <div class="modal fade" :id="modalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -13,8 +13,8 @@
           {{text}}
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" v-if='!noCancel'>{{cancelText||'关闭'}}</button>
-          <button type="button" class="btn btn-primary">{{confirmText||'确定'}}</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" @click='cancel' v-if='!noCancel'>{{cancelText||'关闭'}}</button>
+          <button type="button" class="btn btn-primary" @click='confirm'>{{confirmText||'确定'}}</button>
         </div>
       </div>
     </div>
@@ -36,9 +36,11 @@ export default {
     },
     cancel () {
       this.cover()
+      this.$emit('cancel')
     },
     confirm () {
       this.cover()
+      this.$emit('confirm')
     }
   },
   mounted () { 

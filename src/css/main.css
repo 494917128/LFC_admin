@@ -11,7 +11,8 @@ a, a:link, a:visited {
   text-decoration: none; }
 a:hover { 
   color: #4e4e4e; }
-.button, a.button, button, input[type="submit"], input[type="reset"], input[type="button"] {
+.button
+/*, a.button, button, input[type="submit"], input[type="reset"], input[type="button"] */{
   background: #000000;
   border: 1px solid #000000;
   color: #ffffff;
@@ -31,7 +32,8 @@ a:hover {
   border-radius: 0;
   transition: background-color 100ms, color 100ms, border-color 100ms;
   display: inline-block; }
-.button:hover, a.button:hover, button:hover, input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
+.button:hover
+/*, a.button:hover, button:hover, input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover */{
   background: #4e4e4e;
   color: #FFFFFF;
   border-color: #4e4e4e; }
