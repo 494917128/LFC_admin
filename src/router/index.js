@@ -35,9 +35,9 @@ export default new Router({
   routes: [
     { path: '/login', name: 'login', component: login }, 
 
-    { path: '*', component: home, 
+    { path: '*', name: 'index', component: home, 
       children: [
-        { path: '/', name: 'index', component: index }, 
+        { path: '/index', name: 'index', component: index }, 
 
         { path: '/swiper', name: 'swiper', component: swiper }, 
         { path: '/index_list', name: 'index_list', component: index_list }, 

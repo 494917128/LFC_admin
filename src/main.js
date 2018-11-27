@@ -11,7 +11,7 @@ import '../assets/css/ready.css'
 import '../assets/css/demo.css'
 
 import 'bootstrap/dist/js/bootstrap.min.js';
-import '../assets/js/ready.min.js';
+import '../assets/js/ready.js';
 
 import api from './js/api.js'
 window.api = api

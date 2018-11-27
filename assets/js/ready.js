@@ -4,7 +4,7 @@ $(function () {
 });
 
 jQuery(document).ready(function(){
-    jQuery('.scrollbar-inner').scrollbar();
+    // jQuery('.scrollbar-inner').scrollbar();
 });
 
 $(document).ready(function(){
