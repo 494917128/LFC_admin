@@ -1,11 +1,43 @@
 <template>
-  <div class="index-container">
 
-    <div class="banner-content">
-
+  <div class="container-fluid">
+    <h4 class="page-title">主页轮播图</h4>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <router-link :to="{ name: 'swiper_add' }" class="btn btn-success">添加</router-link>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>图片</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for='(item,index) in 4' :key='index'>
+                    <th scope="row">{{index+1}}</th>
+                    <td><img src="@/images/classify_0.png"></td>
+                    <td>
+                      <button class="btn btn-primary">修改</button>
+                      <button class="btn btn-danger">删除</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
+
 </template>
 
 <script>
@@ -23,55 +55,10 @@ export default {
   },
   mounted () { 
 
-    var userId = api.getItem('userId')
   },
 }
 </script>
 
 <style scoped>
-  .index-container{
-    width: 100%;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .index-container .banner-content {
-    width: 100%;
-    text-align: center;
-    position: relative; }
-  .index-container h3 {
-    opacity: 0.4;
-    color: #fff;
-    font-size: 240px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    user-select: none;
-    z-index: 0;
-    position: relative; }
-  @media (max-width: 1024px) {
-    .index-container h3 {
-      font-size: 170px; } }
-  @media (max-width: 768px) {
-    .index-container h3 {
-      font-size: 125px; } }
-  @media (max-width: 480px) {
-    .index-container h3 {
-      font-size: 77px; } }
-  .index-container .btn {
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 45px;
-    margin: 0 auto;
-    max-width: 215px; }
-  @media (max-width: 1024px) {
-    .index-container .btn {
-      position: relative;
-      bottom: 0; } }
+
 </style>

@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <div class="main-header">
       <div class="logo-header">
-        <router-link :to="{ name: 'index' }" class="logo">
+        <router-link :to="{ path: 'index' }" class="logo">
           LIVE FOR COOL
         </router-link>
         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
                 <p>{{item.name}}</p>
                 <span class="caret" v-if="item.list"></span>
               </a>
-              <router-link :to="{ name: item.link }" class='sidenav-toggler' data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation" v-else>
+              <router-link :to="{ name: item.link }" v-else>
                 <i :class="item.icon"></i>
                 <p>{{item.name}}</p>
               </router-link>
@@ -77,7 +77,7 @@
             <div class="collapse in" :id="'Example'+index" aria-expanded="true" v-if="item.list">
               <ul class="nav" style="margin-top:0px;padding-left: 30px;">
                 <li :class="['nav-item',item.active?'active':'']" v-for="(item,idx) in item.list" :key="idx">
-                  <router-link :to="{ name: item.link }" class='sidenav-toggler' data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+                  <router-link :to="{ path: item.link }">
                     <span class="link-collapse">{{item.name}}</span>
                   </router-link>
                 </li>
@@ -111,10 +111,10 @@ export default {
           name: '系统', 
           icon: 'la la-gears', 
           list: [
-            { name: '主页列表', link: 'index_list', icon: '' },
+            { name: '主页列表', link: 'indexList', icon: '' },
             { name: '主页轮播图', link: 'swiper', icon: '' },
             { name: '品牌列表', link: 'brand', icon: '' },
-            { name: '品牌分类', link: 'brand_type', icon: '' },
+            { name: '品牌分类', link: 'brandType', icon: '' },
           ] 
         },
         { name: '商品', link: 'goods', icon: 'la la-cubes' },
@@ -160,6 +160,8 @@ export default {
       api.removeItem('adminId')
     },
     navRouter(name){ // 路由变化时改变nav的选中
+      if (!name) { name = 'index' } // 响应空
+      name = name.split('_')[0] // 响应子节点
       var _this = this
       this.navClear()
       this.nav_list.map((item,index)=>{
@@ -197,7 +199,6 @@ export default {
   mounted () { 
     // 初始化nav
     this.navRouter(this.$router.currentRoute.name)
-    console.log(this.$router)
 
     var adminId = api.getItem('adminId')
     if (!adminId) { this.$router.push({ name: 'login' }) }

@@ -5,12 +5,6 @@ html, body {
 	margin: 0;
   cursor: url(//cdn.shopify.com/s/files/1/0012/9056/7750/files/right_32x.png?v=1532605891) 10 0, auto; }
 
-a, a:link, a:visited { 
-  color: #000000;
-  transition: color 100ms, border-color 100ms;
-  text-decoration: none; }
-a:hover { 
-  color: #4e4e4e; }
 .button
 /*, a.button, button, input[type="submit"], input[type="reset"], input[type="button"] */{
   background: #000000;
@@ -66,3 +60,11 @@ a:hover {
 .main_btn.btn_black:hover {
   background: transparent;
   color: #000; }
+
+
+  /*============================================================================
+  .覆盖原来样式
+==============================================================================*/
+.table img{
+  height: 30px;
+}

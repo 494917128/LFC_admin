@@ -9,10 +9,11 @@ import home from '@/pages/index'
 import index from '@/pages/index/index'
 
 // 系统
-import swiper from '@/pages/system/swiper'
-import index_list from '@/pages/system/index_list'
-import brand from '@/pages/system/brand'
-import brand_type from '@/pages/system/brand_type'
+import swiper from '@/pages/system/swiper/index'
+import swiper_add from '@/pages/system/swiper/add'
+import indexList from '@/pages/system/indexList/index'
+import brand from '@/pages/system/brand/index'
+import brandType from '@/pages/system/brandType/index'
 
 // 商品
 import goods from '@/pages/goods/index'
@@ -35,14 +36,16 @@ export default new Router({
   routes: [
     { path: '/login', name: 'login', component: login }, 
 
-    { path: '*', name: 'index', component: home, 
+    { path: '*', name: '', component: home, 
       children: [
         { path: '/index', name: 'index', component: index }, 
 
-        { path: '/swiper', name: 'swiper', component: swiper }, 
-        { path: '/index_list', name: 'index_list', component: index_list }, 
+        { path: '/swiper', name: 'swiper', component: swiper },
+        { path: '/swiper_add', name: 'swiper_add', component: swiper_add }, 
+
+        { path: '/indexList', name: 'indexList', component: indexList }, 
         { path: '/brand', name: 'brand', component: brand }, 
-        { path: '/brand_type', name: 'brand_type', component: brand_type }, 
+        { path: '/brandType', name: 'brandType', component: brandType }, 
 
         { path: '/goods', name: 'goods', component: goods }, 
 
