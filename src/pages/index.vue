@@ -100,7 +100,6 @@
 
 <script>
 import MyModal from '@/components/MyModal'
-
 export default {
   name: 'index',
   data() {

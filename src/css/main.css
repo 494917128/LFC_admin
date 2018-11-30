@@ -65,6 +65,25 @@ html, body {
   /*============================================================================
   .覆盖原来样式
 ==============================================================================*/
+/*使用后台框架的table*/
 .table img{
   height: 30px;
+}
+.modal-body{
+  max-height:calc(100vh - 200px);
+  overflow-y:auto;
+}
+/*使用上传组件*/
+.upload img{
+  height: initial;
+}
+.table-responsive {
+  overflow: initial;
+}
+@media (max-width: 991px){
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
 }
