@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/css/ready.css' // 后台框架的css
 import '../assets/css/demo.css' // demo的css	
 
+import './js/jquery.form.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import '../assets/js/ready.js'; // 后台框架的js
 

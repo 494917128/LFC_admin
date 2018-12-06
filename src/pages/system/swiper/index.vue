@@ -7,7 +7,8 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <router-link :to="{ name: 'swiper_add' }" class="btn btn-success">添加</router-link>
+              <router-link :to="{ name: 'swiper_add' }" class="btn btn-info">添加</router-link>
+              <button class="btn btn-primary" @click='batchBtn'>{{is_batch?'取消':'批量操作'}}</button>
             </div>
           </div>
           <div class="card-body">
@@ -22,7 +23,13 @@
                 </thead>
                 <tbody>
                   <tr v-for='(item,index) in 4' :key='index'>
-                    <th scope="row">{{index+1}}</th>
+                    <th scope="row">
+                      <label class="form-check-label" v-if='is_batch'>
+                        <input class="form-check-input" type="checkbox" value="">
+                        <span class="form-check-sign"></span>
+                      </label>
+                      <span v-else>{{index+1}}</span>
+                    </th>
                     <td><img src="@/images/classify_0.png"></td>
                     <td>
                       <button class="btn btn-primary">修改</button>
@@ -42,19 +49,19 @@
 
 <script>
 export default {
-  name: 'swiper',
   data () {
     return {
-
+      is_batch: false, // 判断是否批量操作
     }
   },
   components: {
   },
   methods:{
-
+    batchBtn() {
+      this.is_batch = !this.is_batch
+    }
   },
   mounted () { 
-
   },
 }
 </script>

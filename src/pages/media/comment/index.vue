@@ -1,13 +1,13 @@
 <template>
 
   <div class="container-fluid">
-    <h4 class="page-title">品牌列表</h4>
+    <h4 class="page-title">媒体评论</h4>
     <div class="row">
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <router-link :to="{ name: 'brand_add' }" class="btn btn-success">添加</router-link>
+              <!-- <router-link :to="{ name: 'swiper_add' }" class="btn btn-success">添加</router-link> -->
             </div>
           </div>
           <div class="card-body">
@@ -16,15 +16,13 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>品牌名</th>
-                    <th>logo</th>
+                    <th>图片</th>
                     <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for='(item,index) in 4' :key='index'>
                     <th scope="row">{{index+1}}</th>
-                    <td>品牌</td>
                     <td><img src="@/images/classify_0.png"></td>
                     <td>
                       <button class="btn btn-primary">修改</button>
