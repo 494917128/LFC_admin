@@ -7,8 +7,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <router-link :to="{ name: 'swiper_add' }" class="btn btn-info">添加</router-link>
-              <button class="btn btn-primary" @click='batchBtn'>{{is_batch?'取消':'批量操作'}}</button>
+              <router-link :to="{ name: 'swiper_add' }" class="btn btn-success">添加</router-link>
             </div>
           </div>
           <div class="card-body">
@@ -24,16 +23,12 @@
                 <tbody>
                   <tr v-for='(item,index) in 4' :key='index'>
                     <th scope="row">
-                      <label class="form-check-label" v-if='is_batch'>
-                        <input class="form-check-input" type="checkbox" value="">
-                        <span class="form-check-sign"></span>
-                      </label>
-                      <span v-else>{{index+1}}</span>
+                      <span>{{index+1}}</span>
                     </th>
                     <td><img src="@/images/classify_0.png"></td>
                     <td>
-                      <button class="btn btn-primary">修改</button>
-                      <button class="btn btn-danger">删除</button>
+                      <router-link :to="{ name: 'swiper_add', query: {id:'1'} }" class="btn btn-primary">修改</router-link>
+                      <button class="btn btn-danger" @click='listDelete(1)'>删除</button>
                     </td>
                   </tr>
                 </tbody>
@@ -43,25 +38,71 @@
         </div>
       </div>
     </div>
+    <MyPagination :pageLength="page_length" :page="page" @clickPage="clickPage" />
   </div>
 
 </template>
 
 <script>
+import MyPagination from '@/components/MyPagination'
 export default {
   data () {
     return {
-      is_batch: false, // 判断是否批量操作
+      page: 1,
+      page_length: 20,
     }
   },
   components: {
+    MyPagination
   },
   methods:{
-    batchBtn() {
-      this.is_batch = !this.is_batch
+    clickPage ({page}) {
+      if (page >= 1 && page <= this.page_length) {
+        this.page = page
+        this.pageData()
+      }
+    },
+    listDelete(id){
+      var _this = this
+      this.$swal({
+        title:"提示",
+        text:"是否删除这条记录。",
+        type:"warning",
+        showCancelButton:true,
+        confirmButtonColor:"#DD6B55",
+        confirmButtonText:"确定",
+        cancelButtonText:"取消",
+      }).then((res) => {
+        if (res.value) { 
+          _this.deleteData()
+        }
+      })
+    },
+    deleteData(){
+      var _this = this
+      api.request({
+        url: '',
+        success(res){
+          _this.$swal({
+            title:"删除成功",
+            text:"您已经删除了这条记录。",
+            type:"success"
+          },function(){
+            _this.page = this.page - 1
+            _this.pageData && _this.pageData()
+          })
+        }
+      })
+    },
+    pageData(){
+      api.request({
+        url: '',
+        success(res){}
+      })
     }
   },
   mounted () { 
+    this.pageData()
   },
 }
 </script>

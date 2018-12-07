@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <form id="ajaxForm" method="post" action="" enctype="multipart/form-data">
+          <form id="ajaxForm" method="post" action="aa" enctype="multipart/form-data">
             <div class="card-header">
               <div class="card-title">添加</div>
             </div>
@@ -12,7 +12,7 @@
               <ImageUpload :multiple='true' :avatarList='avatarList' @changeImage='changeImage' />
             </div>
             <div class="card-action">
-              <button @click='upload' class="btn btn-success" :disabled='avatarList.length'>保存</button>
+              <div @click='upload' class="btn btn-success" :disabled='!avatarList.length'>保存</div>
             </div>
           </form>
         </div>
@@ -48,7 +48,9 @@ export default {
   },
   data() {
     return {
-      avatarList: [],
+      id: '',
+      avatarDefault: [],
+      avatarList: [], // 图片（base64）列表
     }
   },
   watch: {
@@ -60,6 +62,9 @@ export default {
         that = this
       this.avatarList = []
 
+      if (files.length == 0) {
+        this.avatarList = this.avatarDefault
+      }
       for (var i = 0; i < files.length; i++) {
         var file = files[i],
           reader = new FileReader()
@@ -78,14 +83,31 @@ export default {
 
       // 调用上传接口,把data传递给接口
       $("#ajaxForm").ajaxSubmit(function (res) {
+        var _this = this
         if (res.status == 1) {
-            alert('上传成功')
+          this.$swal({
+            title:"上传成功",
+            text:"您已经上传了这条数据。",
+            type:"success"
+          },function(){_this.$router.go(-1)})
         } else {
-            alert('上传失败')
+          this.$swal({
+            title:"上传失败",
+            text:"发生未知错误",
+            type:"error"
+          })
         }
       });
 
     },
-  }
+  },
+  mounted () { 
+    this.id = this.$route.query.id||''
+    if (this.id) {
+      this.avatarDefault.push(require('@/images/classify_0.png'))
+      this.avatarList = this.avatarDefault
+    }
+  },
+
 }
 </script>

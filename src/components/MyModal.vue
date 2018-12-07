@@ -23,7 +23,6 @@
 
 <script>
 export default {
-  name: 'MyModal',
   props: ['modalId','title','text','noCancel','cancelText','confirmText'],
   data () {
     return {

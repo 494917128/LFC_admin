@@ -94,7 +94,6 @@
       </div>
     </div>
 
-    <MyModal text='是否确认退出登录' id='myModal' @cancel='cancel' @confirm='confirm' />
   </div>
 </template>
 
@@ -149,15 +148,23 @@ export default {
   methods: {
     // 退出登录
     logout() {
-      $('#myModal').modal('show')
+      var _this = this
+      this.$swal({
+        title: '提示',
+        text: '是否确认退出登录',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor:"#DD6B55",
+        confirmButtonText:"确定",
+        cancelButtonText:"取消",
+      }).then((res) => {
+        if (res.value) {
+          _this.$router.push({ name: 'login' })
+          api.removeItem('adminId')
+        }
+      })
     },
-    cancel() {},
-    // 确认退出登录
-    confirm() {
-      $('#myModal').modal('hide')
-      this.$router.push({ name: 'login' })
-      api.removeItem('adminId')
-    },
+
     navRouter(name){ // 路由变化时改变nav的选中
       if (!name) { name = 'index' } // 响应空
       name = name.split('_')[0] // 响应子节点

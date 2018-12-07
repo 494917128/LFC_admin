@@ -20,12 +20,15 @@ window.api = api
 import axios from 'axios'
 window.axios = axios
 
+
 import './css/main.css'
 
-Vue.config.productionTip = false
-
+import VueSweetalert2 from 'vue-sweetalert2';
+Vue.use(VueSweetalert2);
 const VueUploadComponent = require('vue-upload-component')
 Vue.component('file-upload', VueUploadComponent)
+
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
