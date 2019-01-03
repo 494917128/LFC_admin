@@ -4,15 +4,17 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <form id="ajaxForm" method="post" action="aa" enctype="multipart/form-data">
+          <form id="ajaxForm" method="post" :action="url+'admin/swiper/set'" enctype="multipart/form-data">
             <div class="card-header">
-              <div class="card-title">添加</div>
+              <a @click="$router.go(-1)" class="card-title"><i class="iconfont icon-back"></i>返回</a>
             </div>
             <div class="card-body">
-              <ImageUpload :multiple='true' :avatarList='avatarList' @changeImage='changeImage' />
+              <input type="hidden" name='id' :value='id'>
+              <ImageUpload name='image' :multiple='false' :avatarList='avatarList' @changeImage='changeImage' />
+
             </div>
             <div class="card-action">
-              <div @click='upload' class="btn btn-success" :disabled='!avatarList.length'>保存</div>
+              <div @click='submit' class="btn btn-success">保存</div>
             </div>
           </form>
         </div>
@@ -49,7 +51,8 @@ export default {
   data() {
     return {
       id: '',
-      avatarDefault: [],
+      url: config.url,
+      data: {},
       avatarList: [], // 图片（base64）列表
     }
   },
@@ -63,7 +66,7 @@ export default {
       this.avatarList = []
 
       if (files.length == 0) {
-        this.avatarList = this.avatarDefault
+        this.avatarList = [this.data.image]
       }
       for (var i = 0; i < files.length; i++) {
         var file = files[i],
@@ -75,7 +78,14 @@ export default {
       }
     },
     submit() {
-      if (this.avatarList.length == 0) { return }
+      if (this.avatarList.length == 0&&!this.id) {
+        this.$swal({
+          title:"提示",
+          text:"必须上传图片",
+          type:"warning"
+        });
+        return; 
+      }
       this.upload()
     },
     upload: function(){
@@ -98,14 +108,27 @@ export default {
           })
         }
       });
-
+    },
+    pageData() {
+      var _this = this 
+      // api.request({
+      //   url: 'admin/swiper/detail',
+      //   data: { id: this.id },
+      //   success(res){
+          var data = {
+            id: 1,
+            image: require('@/images/index_bg.jpg'),
+          }
+          this.data = data
+          _this.avatarList = [this.data.image]
+      //   },
+      // })
     },
   },
   mounted () { 
     this.id = this.$route.query.id||''
     if (this.id) {
-      this.avatarDefault.push(require('@/images/classify_0.png'))
-      this.avatarList = this.avatarDefault
+      this.pageData()
     }
   },
 

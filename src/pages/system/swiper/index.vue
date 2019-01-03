@@ -16,18 +16,16 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>图片</th>
+                    <th>轮播图</th>
                     <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for='(item,index) in 4' :key='index'>
-                    <th scope="row">
-                      <span>{{index+1}}</span>
-                    </th>
-                    <td><img src="@/images/classify_0.png"></td>
+                  <tr v-for='(item,index) in list' :key='index'>
+                    <td>{{index+1}}</td>
+                    <td><img :src="item.image"></td>
                     <td>
-                      <router-link :to="{ name: 'swiper_add', query: {id:'1'} }" class="btn btn-primary">修改</router-link>
+                      <router-link :to="{ name: 'swiper_add', query: {id:item.id} }" class="btn btn-primary">修改</router-link>
                       <button class="btn btn-danger" @click='listDelete(1)'>删除</button>
                     </td>
                   </tr>
@@ -38,7 +36,6 @@
         </div>
       </div>
     </div>
-    <MyPagination :pageLength="page_length" :page="page" @clickPage="clickPage" />
   </div>
 
 </template>
@@ -48,8 +45,7 @@ import MyPagination from '@/components/MyPagination'
 export default {
   data () {
     return {
-      page: 1,
-      page_length: 20,
+      list: [],
     }
   },
   components: {
@@ -80,25 +76,28 @@ export default {
     },
     deleteData(){
       var _this = this
-      api.request({
-        url: '',
-        success(res){
+      // api.request({
+      //   url: 'admin/swiper/delete',
+      //   success(res){
           _this.$swal({
             title:"删除成功",
             text:"您已经删除了这条记录。",
             type:"success"
           },function(){
-            _this.page = this.page - 1
             _this.pageData && _this.pageData()
           })
-        }
-      })
+      //   }
+      // })
     },
     pageData(){
-      api.request({
-        url: '',
-        success(res){}
-      })
+      var _this = this;
+      // api.request({
+      //   url: 'admin/swiper',
+      //   success(res){
+            var list = [{id: 1,image: require('@/images/index_bg.jpg')}, {id: 2,image: require('@/images/index_bg.jpg')}]
+            _this.list = list
+      //   }
+      // })
     }
   },
   mounted () { 

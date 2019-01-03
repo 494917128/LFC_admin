@@ -14,12 +14,14 @@ import './js/jquery.form.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import '../assets/js/ready.js'; // 后台框架的js
 
+import config from './js/config.js'
+window.config = config
 import api from './js/api.js'
 window.api = api
 
+
 import axios from 'axios'
 window.axios = axios
-
 
 import './css/main.css'
 

@@ -2,7 +2,7 @@
   <div>
     <div class="form-group">
       <label :for="inputId">{{title}}</label>
-      <input type="file" :name='name' :multiple="multiple" class="form-control-file" :id="inputId" :ref="fileRef" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
+      <input type="file" :multiple="multiple" class="form-control-file" :id="inputId" :ref="fileRef" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
     </div>
     
     <div class="form-group">
@@ -39,7 +39,6 @@
 <script>
 export default {
   props: {
-    name:{ type: String, default: 'image' },
     inputId:{ type: String, default: 'fileInput' },
     multiple:{ type: Boolean, default: false },
     title:{ type: String, default: '图片链接' },

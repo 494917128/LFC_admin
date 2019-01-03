@@ -1,9 +1,4 @@
-﻿var domain = 'localhost'||window.location.host;
-const globalData = {
-	url: 'http://'+domain+':8080/',
-	image_url: 'http://'+domain+':8080/',
-}
-
+﻿
 const setItem = (name, val) => { 
 	window.localStorage.setItem("LFC_"+name, val);
 }
@@ -30,7 +25,7 @@ const isNum = (val='') => {
 const request = ({method='post', url, type='json', data={}, success, fail}) => {
 	axios({
 	  method,
-	  url: globalData.url + url,
+	  url: config.url + url,
 	  headers: {
 	    'Content-Type': type=='form'?'application/x-www-form-urlencoded;charset=UTF-8':'application/json;charset=UTF-8'
 	  },
@@ -64,7 +59,7 @@ const uploadFile = (event,success) => {
 	
 	axios({
 	  method: 'post',
-	  url: globalData.url + 'uploadFile',
+	  url: config.url + 'uploadFile',
 	  headers: {
 	    'Content-Type': 'multipart/form-data'
 	  },
@@ -100,8 +95,6 @@ module.exports = {
 	setItem,
 	getItem,
 	removeItem,
-
-	globalData,
 
 	isPhone,
 	isNum,

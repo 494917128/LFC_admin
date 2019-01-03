@@ -112,7 +112,7 @@ export default {
             { name: '主页列表', link: 'indexList', icon: '' },
             { name: '主页轮播图', link: 'swiper', icon: '' },
             { name: '品牌列表', link: 'brand', icon: '' },
-            { name: '品牌分类', link: 'brandType', icon: '' },
+            // { name: '品牌分类', link: 'brandType', icon: '' },
           ] 
         },
         { name: '商品', link: 'goods', icon: 'la la-cubes' },
