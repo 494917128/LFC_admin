@@ -88,7 +88,6 @@ export default {
             text:"您已经删除了这条记录。",
             type:"success"
           },function(){
-            _this.page = this.page - 1
             _this.pageData && _this.pageData()
           })
         }

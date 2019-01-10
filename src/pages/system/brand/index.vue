@@ -1,5 +1,4 @@
 <template>
-
   <div class="container-fluid">
     <h4 class="page-title">品牌列表</h4>
     <div class="row">
@@ -20,6 +19,8 @@
                     <th>品牌LOGO</th>
                     <th>品牌视频</th>
                     <th>品牌视频封面</th>
+                    <th>小程序大图</th>
+                    <th>品牌介绍</th>
                     <th>操作</th>
                   </tr>
                 </thead>
@@ -30,6 +31,8 @@
                     <td><img :src="item.image"></td>
                     <td><img :src="item.video"></td>
                     <td><img :src="item.video_poster"></td>
+                    <td><img :src="item.banner"></td>
+                    <td>{{item.desc}}</td>
                     <td>
                       <!-- <button class="btn btn-info">查看</button> -->
                       <router-link :to="{ name: 'brand_add', query: {id:item.id} }" class="btn btn-primary">修改</router-link>
@@ -100,9 +103,10 @@ export default {
       var _this = this;
       // api.request({
       //   url: 'admin/brand',
+      //   data: { page: this.page },
       //   success(res){
-            var list = [{id: 1,name:'标题',image: require('@/images/index_bg.jpg'),video:require('@/images/index_bg.jpg'),video_poster:require('@/images/index_bg.jpg') },
-              {id: 2,name:'标题',image: require('@/images/index_bg.jpg'),video:require('@/images/index_bg.jpg'),video_poster:require('@/images/index_bg.jpg') }]
+            var list = [{id: 1,name:'标题',image: require('@/images/index_bg.jpg'),video:require('@/images/index_bg.jpg'),video_poster:require('@/images/index_bg.jpg'),banner:require('@/images/index_bg.jpg'),desc:'详情' },
+              {id: 2,name:'标题',image: require('@/images/index_bg.jpg'),video:require('@/images/index_bg.jpg'),video_poster:require('@/images/index_bg.jpg'),banner:require('@/images/index_bg.jpg'),desc:'详情' }]
             _this.list = list
       //   }
       // })

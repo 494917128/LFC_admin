@@ -14,7 +14,6 @@ export default {
   props: ['page', 'pageLength'],
   data () {
     return {
-      image_url: api.globalData.image_url
     }
   },
   methods:{

@@ -1,13 +1,13 @@
 <template>
 
   <div class="container-fluid">
-    <h4 class="page-title">主页轮播图</h4>
+    <h4 class="page-title">商品列表</h4>
     <div class="row">
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <router-link :to="{ name: 'swiper_add' }" class="btn btn-success">添加</router-link>
+              <router-link :to="{ name: 'goods_add' }" class="btn btn-success">添加</router-link>
             </div>
           </div>
           <div class="card-body">
@@ -15,25 +15,33 @@
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th>#</th>
+                    <th>id</th>
                     <th>品牌</th>
                     <th>商品名</th>
                     <th>商品图</th>
                     <th>商品价格</th>
+                    <th>商品介绍（pc端）</th>
+                    <th>商品介绍图（小程序端）</th>
+                    <th>商品尺码</th>
+                    <th>商品颜色</th>
                     <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for='(item,index) in 4' :key='index'>
+                  <tr v-for='(item,index) in list' :key='index'>
                     <th scope="row">
-                      <span>{{index+1}}</span>
+                      <span>{{item.id}}</span>
                     </th>
-                    <td>LFC</td>
-                    <td>衣服</td>
-                    <td><img src="@/images/classify_0.png"></td>
-                    <td>45</td>
+                    <td>{{item.brank}}</td>
+                    <td>{{item.name}}</td>
+                    <td><img :src="item.image"></td>
+                    <td>{{item.price}}</td>
+                    <td><span v-for='(item,index) in item.type' :key='index'><span v-if='index!=0'>,</span>{{item}}</span></td>
+                    <td><img :src="item" v-for='(item,index) in item.detail' :key='index'></td>
+                    <td><span v-for='(item,index) in item.sizes' :key='index'><span v-if='index!=0'>,</span>{{item}}</span></td>
+                    <td><span v-for='(item,index) in item.colors' :key='index'><span v-if='index!=0'>,</span>{{item}}</span></td>
                     <td>
-                      <router-link :to="{ name: 'swiper_add', query: {id:'1'} }" class="btn btn-primary">修改</router-link>
+                      <router-link :to="{ name: 'goods_add', query: {id:'1'} }" class="btn btn-primary">修改</router-link>
                       <button class="btn btn-danger" @click='listDelete(1)'>删除</button>
                     </td>
                   </tr>
@@ -54,8 +62,9 @@ import MyPagination from '@/components/MyPagination'
 export default {
   data () {
     return {
+      list: [],
       page: 1,
-      page_length: 20,
+      page_length: 1,
     }
   },
   components: {
@@ -86,28 +95,35 @@ export default {
     },
     deleteData(){
       var _this = this
-      api.request({
-        url: '',
-        success(res){
+      // api.request({
+      //   url: 'admin/product/delete',
+      //   success(res){
           _this.$swal({
             title:"删除成功",
             text:"您已经删除了这条记录。",
             type:"success"
           },function(){
-            _this.page = this.page - 1
             _this.pageData && _this.pageData()
           })
-        }
-      })
+      //   }
+      // })
     },
     pageData(){
-      api.request({
-        url: '',
-        success(res){}
-      })
+      var _this = this
+      // api.request({
+      //   url: 'admin/product',
+      //   success(res){
+          var list = [{id:1,brand:'LFC',name: '衣服',image:require('@/images/index_bg.jpg'),price:45,type:['100%纯棉','纯手工打造'],detail:[require('@/images/index_bg.jpg'),require('@/images/index_bg.jpg')],sizes:['S','M'],colors:['白色','黑色']}, 
+            {id:1,brand:'LFC',name: '衣服',image:require('@/images/index_bg.jpg'),price:45,type:['100%纯棉','纯手工打造'],detail:[require('@/images/index_bg.jpg'),require('@/images/index_bg.jpg')],sizes:['S','M'],colors:['白色','黑色']}]
+          _this.list = list
+          _this.page_length = 20
+      //   }
+      // })
     }
   },
   mounted () { 
+    this.page = 1
+
     this.pageData()
   },
 }

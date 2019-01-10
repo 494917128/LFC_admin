@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="form-group">
-      <label :for="inputId">{{title}}</label>
-      <input type="file" :name='name' :multiple="multiple" class="form-control-file" :id="inputId" :ref="fileRef" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
+      <label :for="fileRef">{{title}}</label>
+      <input type="file" :name='name' :multiple="multiple" class="form-control-file" :id="fileRef" :ref="fileRef" @change="changeImage($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
     </div>
     
     <div class="form-group">
-      <label :for="inputId" v-if='avatarList.length'>
+      <label :for="fileRef" v-if='avatarList.length'>
         <div class="bd-example bd-example-images">
           <img :src='item' class='upload-image img-thumbnail' v-for='(item,index) in avatarList' :key='index'></img>
         </div>
       </label>
-      <label :for="inputId" v-else>
+      <label :for="fileRef" v-else>
         <div class='upload-image-none justify-center'>+</div>
      </label>
     </div>
@@ -40,7 +40,6 @@
 export default {
   props: {
     name:{ type: String, default: 'image' },
-    inputId:{ type: String, default: 'fileInput' },
     multiple:{ type: Boolean, default: false },
     title:{ type: String, default: '图片链接' },
     fileRef:{ type: String, default: 'avatarInput' },

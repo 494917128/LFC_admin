@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <form id="ajaxForm" method="post" :action="url+'admin/swiper/set'" enctype="multipart/form-data">
+          <form id="ajaxForm" method="post" :action="url+'admin/brand/set'" enctype="multipart/form-data">
             <div class="card-header">
               <a @click="$router.go(-1)" class="card-title"><i class="iconfont icon-back"></i>返回</a>
             </div>
@@ -20,6 +20,11 @@
                 <input type="file" name="video" class="form-control-file" id="exampleFormControlFile1">
               </div>
               <ImageUpload name='video_poster' :multiple='false' title='品牌视频封面' fileRef='video_poster' :avatarList='posterList' @changeImage='changePoster' />
+              <ImageUpload name='banner' :multiple='false' title='banner图（小程序）' fileRef='banner' :avatarList='bannerList' @changeImage='changeBanner' />
+              <div class="form-group">
+                <label for="name">品牌介绍</label>
+                <input type="text" class="form-control" name='desc' id="desc" placeholder="品牌介绍" :value='data.desc||""'>
+              </div>
             </div>
             <div class="card-action">
               <div @click='submit' class="btn btn-success">保存</div>
@@ -63,6 +68,7 @@ export default {
       data: {},
       imageList: [], // 图片（base64）列表
       posterList: [], // 图片（base64）列表
+      bannerList: [], // 图片（base64）列表
     }
   },
   watch: {
@@ -103,6 +109,23 @@ export default {
         }
       }
     },
+    changeBanner (e){
+      var files = e.target.files,
+        that = this
+      this.bannerList = []
+
+      if (files.length == 0) {
+        this.bannerList = [this.data.banner]
+      }
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i],
+          reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = function(e){
+          that.bannerList.push(this.result)
+        }
+      }
+    },
     submit() {
       this.upload()
     },
@@ -139,10 +162,13 @@ export default {
             image: require('@/images/index_bg.jpg'),
             video: require('@/images/index_bg.jpg'),
             video_poster: require('@/images/index_bg.jpg'),
+            banner: require('@/images/index_bg.jpg'),
+            desc: '详情'
           }
           this.data = data
           _this.imageList = [this.data.image]
           _this.posterList = [this.data.video_poster]
+          _this.bannerList = [this.data.banner]
       //   },
       // })
     },

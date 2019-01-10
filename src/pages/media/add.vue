@@ -1,18 +1,29 @@
 <template>
   <div class="container-fluid">
-    <h4 class="page-title">主页轮播图</h4>
+    <h4 class="page-title">主页列表</h4>
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <form id="ajaxForm" method="post" action="aa" enctype="multipart/form-data">
+          <form id="ajaxForm" method="post" :action="url+'admin/product/set'" enctype="multipart/form-data">
             <div class="card-header">
               <a @click="$router.go(-1)" class="card-title"><i class="iconfont icon-back"></i>返回</a>
             </div>
             <div class="card-body">
-              <ImageUpload :multiple='true' :avatarList='avatarList' @changeImage='changeImage' />
+              <input type="hidden" name='id' :value='id'>
+              <input type="hidden" name='user_id' :value='1'>
+              <div class="form-group">
+                <label for="text">媒体内容</label>
+                <input type="text" class="form-control" name='text' id="text" placeholder="媒体内容" :value='data.text||""'>
+              </div>
+              <ImageUpload name='images[]' :multiple='true' title='媒体图片' fileRef='image' :avatarList='imageList' @changeImage='changeImage' />
+              <div class="form-group">
+                <label for="video">媒体视频</label>
+                <input type="file" name="video" class="form-control-file" id="video">
+              </div>
+              <ImageUpload name='video_poster' :multiple='false' title='媒体视频封面' fileRef='video_poster' :avatarList='posterList' @changeImage='changePoster' />
             </div>
             <div class="card-action">
-              <div @click='upload' class="btn btn-success" :disabled='!avatarList.length'>保存</div>
+              <div @click='submit' class="btn btn-success">保存</div>
             </div>
           </form>
         </div>
@@ -49,8 +60,10 @@ export default {
   data() {
     return {
       id: '',
-      avatarDefault: [],
-      avatarList: [], // 图片（base64）列表
+      url: config.url,
+      data: {},
+      imageList: [], // 图片（base64）列表
+      posterList: [], // 图片（base64）列表
     }
   },
   watch: {
@@ -60,22 +73,38 @@ export default {
     changeImage (e){
       var files = e.target.files,
         that = this
-      this.avatarList = []
+      this.imageList = []
 
       if (files.length == 0) {
-        this.avatarList = this.avatarDefault
+        this.imageList = this.data.images
       }
       for (var i = 0; i < files.length; i++) {
         var file = files[i],
           reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function(e){
-          that.avatarList.push(this.result)
+          that.imageList.push(this.result)
+        }
+      }
+    },
+    changePoster (e){
+      var files = e.target.files,
+        that = this
+      this.posterList = []
+
+      if (files.length == 0) {
+        this.posterList = this.data.detail
+      }
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i],
+          reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = function(e){
+          that.posterList.push(this.result)
         }
       }
     },
     submit() {
-      if (this.avatarList.length == 0) { return }
       this.upload()
     },
     upload: function(){
@@ -98,16 +127,33 @@ export default {
           })
         }
       });
-
+    },
+    pageData() {
+      var _this = this 
+      // api.request({
+      //   url: 'admin/media/detail',
+      //   data: { id: this.id },
+      //   success(res){
+          var data = {
+            id:1,
+            user:{username:'aaa'},
+            text: '内容',
+            images:[require('@/images/index_bg.jpg'),require('@/images/index_bg.jpg')],
+            video:require('@/images/index_bg.jpg'),
+            video_poster:require('@/images/index_bg.jpg'),
+          }
+          this.data = data
+          _this.imageList = this.data.images
+          _this.posterList = [this.data.video_poster]
+      //   },
+      // })
     },
   },
   mounted () { 
     this.id = this.$route.query.id||''
     if (this.id) {
-      this.avatarDefault.push(require('@/images/classify_0.png'))
-      this.avatarList = this.avatarDefault
+      this.pageData()
     }
   },
-
 }
 </script>
