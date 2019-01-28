@@ -36,6 +36,7 @@
         </div>
       </div>
     </div>
+    <MyPagination :pageLength="page_length" :page="page" @clickPage="clickPage" />
   </div>
 
 </template>
@@ -46,6 +47,8 @@ export default {
   data () {
     return {
       list: [],
+      page: 1,
+      page_length: 2,
     }
   },
   components: {

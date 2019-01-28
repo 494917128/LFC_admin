@@ -50,7 +50,7 @@ export default {
     return {
       list: [],
       page: 1,
-      page_length: 1,
+      page_length: 2,
     }
   },
   components: {
