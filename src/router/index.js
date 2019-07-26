@@ -46,7 +46,6 @@ import order_add from '@/pages/order/add'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     { path: '/login', name: 'login', component: login }, 
 
